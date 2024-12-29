@@ -1,3 +1,4 @@
+LABEL org.opencontainers.image.source https://github.com/RelativeSure/build-gh-actions-image
 FROM fedora:42@sha256:70d5934128fe1b1abc97750dc358dad9cf499c11059f0ed720872fedcc4880d1
 
 # Define variables
