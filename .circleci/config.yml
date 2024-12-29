@@ -26,4 +26,4 @@ jobs:
           name: Push application Docker image
           command: |
             echo $GH_PACKAGES_TOKEN | docker login ghcr.io -u RelativeSure --password-stdin
-            docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG
+            docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
