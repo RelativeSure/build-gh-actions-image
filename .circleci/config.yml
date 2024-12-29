@@ -28,8 +28,8 @@ jobs:
       - run:
           name: Push application Docker image
           command: |
-            # RelativeSure
-            echo $RS_GH_PACKAGES_TOKEN | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
+            # RelativeSure Classic Token
+            echo $RS_GH_PACKAGES_TOKEN_v2 | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
             docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
             # KubeArchitectBot
             # echo $GH_PACKAGES_TOKEN | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
