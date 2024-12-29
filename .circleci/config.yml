@@ -23,7 +23,11 @@ jobs:
           name: Build Docker image
           command: docker build -t $GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM docker/fedora/
       - run:
+          name: List Docker image
+          command: docker image ls
+      - run:
           name: Push application Docker image
           command: |
             echo $GH_PACKAGES_TOKEN | docker login ghcr.io -u RelativeSure --password-stdin
-            docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
+            # docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
+            docker push --all-tags ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME
