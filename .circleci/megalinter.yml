@@ -30,6 +30,9 @@ jobs:
             VALIDATE_ALL_CODEBASE: 'true' 
             DEFAULT_WORKSPACE: "/root/project"
             GITHUB_WORKSPACE: "/root/project"
+            GITHUB_REPOSITORY: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+            GITHUB_REF: $CI_PULL_REQUEST
+            GITHUB_SHA: $CIRCLE_SHA1
       - store_artifacts:
           path: megalinter-reports/megalinter-report.sarif
 workflows: 
