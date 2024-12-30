@@ -29,9 +29,9 @@ executors:
              GITHUB_STATUS_REPORTER: 'true' 
              GITHUB_COMMENT_REPORTER: 'false' 
              VALIDATE_ALL_CODEBASE: 'true' 
-             DEFAULT_WORKSPACE: "/root/project" 
-             GITHUB_WORKSPACE: "/root/project" 
- workflows: 
-   my-custom-workflow: 
-     jobs:  
-       - megalinter
+             DEFAULT_WORKSPACE: "/root/project"
+             GITHUB_WORKSPACE: "/root/project"
+workflows: 
+  my-custom-workflow: 
+    jobs:  
+      - megalinter
