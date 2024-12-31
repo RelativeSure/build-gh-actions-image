@@ -2,16 +2,18 @@ version: 2.1
 setup: true
 orbs:
   path-filtering: circleci/path-filtering@1.1.0
-# trigger
 workflows:
   generate-config:
     jobs:
       - path-filtering/filter:
           base-revision: master
           config-path: .circleci/megalinter.yml
-          mapping: .circleci/megalinter.yml
+          tag: "3.9"
+          mapping: |
+           .* megalinter true .circleci/megalinter.yml
       - path-filtering/filter:
           base-revision: master
           config-path: .circleci/fedora-actions.yml
+          tag: "3.9"
           mapping: |
             docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml
