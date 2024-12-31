@@ -36,7 +36,15 @@ jobs:
             echo "GITHUB_SHA: $CIRCLE_SHA1"     
       - run:
           name: ml
-          command: /bin/bash /entrypoint.sh
+          command: |
+            export GITHUB_TOKEN=$RS_GH_PACKAGES_TOKEN_v2
+            export CI_ACTION_RUN_URL=$CIRCLE_BUILD_URL
+            export GITHUB_REPOSITORY=$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+            export GITHUB_REF=$CI_PULL_REQUEST
+            export GITHUB_SHA=$CIRCLE_SHA1
+            export DEFAULT_WORKSPACE=$CIRCLE_WORKING_DIRECTORY
+            export GITHUB_WORKSPACE=$CIRCLE_WORKING_DIRECTORY
+            /bin/bash -ex /entrypoint.sh
       - store_artifacts:
           path: megalinter-reports 
 
