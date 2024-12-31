@@ -1,41 +1,44 @@
 version: 2.1 
-executors:  
-   megalinter-executor: 
-     docker: 
-       - image: oxsecurity/megalinter-python:v8.3.0 
-         auth: 
-           # ensure you have first added these secrets 
-           # visit app.circleci.com/settings/project/github/RelativeSure/autocopr/environment-variables 
+# executors:  
+#    megalinter-executor: 
+#      docker: 
+#        - image: oxsecurity/megalinter-python:v8.3.0 
+#          auth: 
+#            # ensure you have first added these secrets 
+#            # visit app.circleci.com/settings/project/github/RelativeSure/autocopr/environment-variables 
+#            username: $DOCKER_HUB_USER 
+#            password: $DOCKER_HUB_PASSWORD
+
+jobs:
+  megalinter:
+    docker:
+      - image: oxsecurity/megalinter-cupcake:v8.3.0
+        auth: 
            username: $DOCKER_HUB_USER 
            password: $DOCKER_HUB_PASSWORD
-jobs: 
-  megalinter: 
-    executor: megalinter-executor
+    environment:
+      GITHUB_TOKEN: $RS_GH_PACKAGES_TOKEN_v2
+      CI_ACTION_RUN_URL: $CIRCLE_BUILD_URL
+      GITHUB_REPOSITORY: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+      GITHUB_REF: $CI_PULL_REQUEST
+      GITHUB_SHA: $CIRCLE_SHA1
+    #executor: megalinter-executor
     steps: 
-      - checkout 
-      - run: 
-          name: ml 
-          command: bash /entrypoint.sh 
-          environment:
-            PAT: $RS_GH_PACKAGES_TOKEN_v2
-            GITHUB_TOKEN: $RS_GH_PACKAGES_TOKEN_v2
-            APPLY_FIXES: all 
-            APPLY_FIXES_EVENT: push 
-            APPLY_FIXES_MODE: pull_request 
-            #GITHUB_TOKEN: ${{ secrets.KUBEARCHITECTBOT_TOKEN || secrets.GITHUB_TOKEN }} 
-            SARIF_REPORTER: 'true' 
-            GITHUB_STATUS_REPORTER: 'true'
-            CI_ACTION_RUN_URL: $CIRCLE_BUILD_URL
-            GITHUB_COMMENT_REPORTER: 'true' 
-            VALIDATE_ALL_CODEBASE: 'true' 
-            DEFAULT_WORKSPACE: "/root/project"
-            GITHUB_WORKSPACE: "/root/project"
-            GITHUB_REPOSITORY: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-            GITHUB_REF: $CI_PULL_REQUEST
-            GITHUB_SHA: $CIRCLE_SHA1
+      - checkout
+      - run:
+          name: Test variables
+          command: |
+            echo "CI_ACTION_RUN_URL: $CIRCLE_BUILD_URL"
+            echo "GITHUB_REPOSITORY: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+            echo "GITHUB_REF: $CI_PULL_REQUEST"
+            echo "GITHUB_SHA: $CIRCLE_SHA1"     
+      - run:
+          name: ml
+          command: /bin/bash /entrypoint.sh
       - store_artifacts:
-          path: megalinter-reports/megalinter-report.sarif
-workflows: 
-  megalinter-workflow: 
-    jobs:  
+          path: megalinter-reports 
+
+workflows:
+  megalinter-workflow:
+    jobs:
       - megalinter
