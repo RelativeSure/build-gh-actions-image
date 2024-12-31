@@ -6,16 +6,12 @@ workflows:
   generate-config:
     jobs:
       - path-filtering/filter:
-          base-revision: master
-          config-path: .circleci/megalinter.yml
+          # Examples: https://github.com/CircleCI-Public/dynamic-configuration-examples/tree/generate-config-file-main
+          # base-revision: master
+          base-revision: RelativeSure-patch-1
+          config-path: .circleci/no-updates.yml
           resource_class: large
           tag: "3.9"
           mapping: |
            .* megalinter true .circleci/megalinter.yml
-      - path-filtering/filter:
-          base-revision: master
-          config-path: .circleci/fedora-actions.yml
-          resource_class: large
-          tag: "3.9"
-          mapping: |
-            docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml
+           docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml
