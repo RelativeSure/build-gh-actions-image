@@ -1,14 +1,4 @@
 version: 2.1 
-# executors:  
-#    megalinter-executor: 
-#      docker: 
-#        - image: oxsecurity/megalinter-python:v8.3.0 
-#          auth: 
-#            # ensure you have first added these secrets 
-#            # visit app.circleci.com/settings/project/github/RelativeSure/autocopr/environment-variables 
-#            username: $DOCKER_HUB_USER 
-#            password: $DOCKER_HUB_PASSWORD
-
 jobs:
   megalinter:
     docker:
@@ -16,16 +6,6 @@ jobs:
         auth: 
            username: $DOCKER_HUB_USER 
            password: $DOCKER_HUB_PASSWORD
-    # environment:
-    #   GITHUB_TOKEN: $RS_GH_PACKAGES_TOKEN_v2
-    #   CI_ACTION_RUN_URL: $CIRCLE_BUILD_URL
-    #   GITHUB_REPOSITORY: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-    #   GITHUB_REF: $CI_PULL_REQUEST
-    #   GITHUB_SHA: $CIRCLE_SHA1
-    #   DEFAULT_WORKSPACE: $CIRCLE_WORKING_DIRECTORY
-    #   GITHUB_WORKSPACE: $CIRCLE_WORKING_DIRECTORY
-    #   GITHUB_RUN_ID: $CIRCLE_BUILD_NUM
-    #executor: megalinter-executor
     steps: 
       - checkout  
       - run:
