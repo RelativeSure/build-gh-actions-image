@@ -8,9 +8,9 @@ workflows:
       - path-filtering/filter:
           base-revision: master
           config-path: .circleci/megalinter.yml
-          mapping: .* megalinter true .circleci/megalinter.yml
+          mapping: .circleci/megalinter.yml
       - path-filtering/filter:
           base-revision: master
           config-path: .circleci/fedora-actions.yml
           mapping: |
-            docker/fedora/.* fedora-actions true .circleci/fedora-actions.yml
+            docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml
