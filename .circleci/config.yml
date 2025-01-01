@@ -1,5 +1,15 @@
 version: 2.1
 setup: true
+
+# define the parameters from the setup config. 
+ parameters: 
+   megalinter: 
+     type: boolean 
+     default: false 
+   build-fedora-image: 
+     type: boolean 
+     default: false
+
 orbs:
   path-filtering: circleci/path-filtering@1.1.0
 workflows:
