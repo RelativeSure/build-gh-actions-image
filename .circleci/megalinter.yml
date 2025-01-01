@@ -37,6 +37,9 @@ jobs:
           path: megalinter-reports
       - store_artifacts:
           path: report/updated_sources
+      - run: ls -larth
+      - run: ls -larth megalinter-reports || true
+      - run: ls -larth report || true
 
 workflows:
   megalinter-workflow:
