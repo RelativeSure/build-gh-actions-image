@@ -1,7 +1,5 @@
 # General configuration
 APPLY_FIXES: 'all'
-APPLY_FIXES_EVENT: 'none'
-APPLY_FIXES_MODE: 'commit' 
 SARIF_REPORTER: 'true' 
 GITHUB_STATUS_REPORTER: 'true'
 GITHUB_COMMENT_REPORTER: 'true'
