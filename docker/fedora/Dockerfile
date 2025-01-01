@@ -10,6 +10,7 @@ ARG USER_HOME=/home/$USERNAME
 # Upgrade all packages
 RUN dnf -y upgrade --refresh
 
+# hadolint ignore=DL3008
 RUN dnf -y install curl wget sudo python-copr python-copr-doc \ 
   dnf-plugins-core git && dnf clean all
 
