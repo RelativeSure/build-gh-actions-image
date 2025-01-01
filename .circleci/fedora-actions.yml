@@ -39,7 +39,6 @@ jobs:
             docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
 
 workflows:
-  #when: << pipeline.parameters.build-fedora-image>>
   build-fedora-image-workflow:
-  jobs:
-    - build-fedora-image
+    jobs:
+      - build-fedora-image
