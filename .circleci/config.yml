@@ -1,36 +1,27 @@
 version: 2.1
-jobs:
-  build:
-    working_directory: docker/fedora/
-    docker:
-      - image: cimg/base:stable
-        auth:
-          username: $DOCKER_HUB_USER
-          password: $DOCKER_HUB_PASSWORD
-    environment:
-      DOCKER_VERSION_TAG: v0.0.1
-      DOCKER_IMAGE_NAME: fedora-actions
-      GITHUB_USERNAME: relativesure
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      # - run:
-      #     name: Run tests
-      #     command: |
-      #       docker-compose -f ./docker-compose.test.yml up
-      - run:
-          name: Build Docker image
-          command: docker build -t ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM $CIRCLE_WORKING_DIRECTORY
-      - run:
-          name: List Docker image
-          command: docker image ls
-      - run:
-          name: Push application Docker image
-          command: |
-            # RelativeSure Classic Token
-            echo $RS_GH_PACKAGES_TOKEN_v2 | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
-            docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
-            # KubeArchitectBot
-            # echo $GH_PACKAGES_TOKEN | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
-            # docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
+setup: true
+
+# define the parameters from the setup config. 
+parameters: 
+ megalinter: 
+   type: boolean 
+   default: false 
+ build-fedora-image: 
+   type: boolean 
+   default: false
+
+orbs:
+  path-filtering: circleci/path-filtering@1.1.0
+workflows:
+  generate-config:
+    jobs:
+      - path-filtering/filter:
+          # Examples: https://github.com/CircleCI-Public/dynamic-configuration-examples/tree/generate-config-file-main
+          # base-revision: master
+          base-revision: RelativeSure-patch-1
+          config-path: .circleci/no-updates.yml
+          resource_class: large
+          tag: "3.9"
+          mapping: |
+           .* megalinter true .circleci/megalinter.yml
+           docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml

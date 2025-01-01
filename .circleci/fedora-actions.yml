@@ -1,0 +1,44 @@
+version: 2.1
+
+# define the parameters from the setup config.  
+parameters:  
+  megalinter:  
+    type: boolean  
+    default: false  
+  build-fedora-image:  
+    type: boolean  
+    default: false
+
+jobs:
+  build-fedora-image:
+    working_directory: docker/fedora/
+    docker:
+      - image: cimg/base:stable
+        auth:
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
+    environment:
+      DOCKER_VERSION_TAG: v0.0.1
+      DOCKER_IMAGE_NAME: fedora-actions
+      GITHUB_USERNAME: relativesure
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build Docker image
+          command: docker build -t ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM $CIRCLE_WORKING_DIRECTORY
+      - run:
+          name: List Docker image
+          command: docker image ls
+      - run:
+          name: Push application Docker image
+          command: |
+            # RelativeSure Classic Token
+            echo $RS_GH_PACKAGES_TOKEN_v2 | docker login ghcr.io -u $GITHUB_USERNAME --password-stdin
+            docker push ghcr.io/$GITHUB_USERNAME/$DOCKER_IMAGE_NAME:$DOCKER_VERSION_TAG-$CIRCLE_BUILD_NUM
+
+workflows:
+  build-fedora-image-workflow:
+    jobs:
+      - build-fedora-image
