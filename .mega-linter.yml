@@ -1,6 +1,7 @@
+---
 # General configuration
 APPLY_FIXES: 'all'
-SARIF_REPORTER: 'true' 
+SARIF_REPORTER: 'true'
 GITHUB_STATUS_REPORTER: 'true'
 GITHUB_COMMENT_REPORTER: 'true'
 VALIDATE_ALL_CODEBASE: 'true'
@@ -22,8 +23,4 @@ DISABLE:
   - SPELL
 
 PYTHON_BANDIT_DISABLE_ERRORS: true
-
 SHOW_ELAPSED_TIME: true
-
-# Activate SARIF for GitHub Security
-SARIF_REPORTER: true
