@@ -34,7 +34,6 @@ jobs:
           path: megalinter-reports 
 
 workflows:
-  when: << pipeline.parameters.megalinter >>
   megalinter-workflow:
     jobs:
       - megalinter
