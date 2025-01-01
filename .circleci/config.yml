@@ -13,13 +13,13 @@ parameters:
 orbs:
   path-filtering: circleci/path-filtering@1.1.0
 workflows:
-  environment:
-    CIRCLE_BRANCH: $CIRCLE_BRANCH
   generate-config:
     jobs:
       - path-filtering/filter:
           # Examples: https://github.com/CircleCI-Public/dynamic-configuration-examples/tree/generate-config-file-main
           # base-revision: master
+          environment:
+            CIRCLE_BRANCH: $CIRCLE_BRANCH
           base-revision: $CIRCLE_BRANCH
           config-path: .circleci/no-updates.yml
           resource_class: large
