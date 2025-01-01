@@ -1,13 +1,13 @@
 version: 2.1
 
 # define the parameters from the setup config.  
-  parameters:  
-    megalinter:  
-      type: boolean  
-      default: false  
-    build-fedora-image:  
-      type: boolean  
-      default: false
+parameters:  
+  megalinter:  
+    type: boolean  
+    default: false  
+  build-fedora-image:  
+    type: boolean  
+    default: false
 
 jobs:
   build-fedora-image:
