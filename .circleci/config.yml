@@ -13,6 +13,8 @@ parameters:
 orbs:
   path-filtering: circleci/path-filtering@1.1.0
 workflows:
+  environment:
+    CIRCLE_BRANCH: $CIRCLE_BRANCH
   generate-config:
     jobs:
       - path-filtering/filter:
