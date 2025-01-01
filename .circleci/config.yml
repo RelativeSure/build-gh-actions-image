@@ -18,7 +18,7 @@ workflows:
       - path-filtering/filter:
           # Examples: https://github.com/CircleCI-Public/dynamic-configuration-examples/tree/generate-config-file-main
           # base-revision: master
-          base-revision: RelativeSure-patch-1
+          base-revision: $CIRCLE_BRANCH
           config-path: .circleci/no-updates.yml
           resource_class: large
           tag: "3.9"
