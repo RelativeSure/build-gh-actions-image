@@ -1,3 +1,4 @@
+---
 version: 2.1
 
 # define the parameters from the setup config.  
@@ -14,8 +15,9 @@ jobs:
     docker:
       - image: oxsecurity/megalinter-cupcake:v8.3.0
         auth: 
-           username: $DOCKER_HUB_USER 
+           username: $DOCKER_HUB_USER
            password: $DOCKER_HUB_PASSWORD
+    resource_class: large
     steps: 
       - checkout  
       - run:
@@ -30,10 +32,39 @@ jobs:
             export GITHUB_WORKSPACE=$CIRCLE_WORKING_DIRECTORY
             export GITHUB_RUN_ID=$CIRCLE_BUILD_NUM
             /bin/bash -ex /entrypoint.sh
-      - store_artifacts:
-          path: megalinter-reports
-      - store_artifacts:
-          path: report/updated_sources
+     # fix this later.
+     # Needs to take files from updates sources folder and push it to current branch.
+     # - run:
+      #    name: Get the updated sources in megalinter-reports
+       #   command: |
+            # List the folders in updated_sources within megainter-reports
+     #       FOLDER_LIST=$(ls -l megalinter-reports/updated_sources)
+      #      echo "Folders in megalinter-reports/updated_sources: $FOLDER_LIST"
+     #       if [ -z "$FOLDER_LIST" ]; then
+      #        echo "No updated sources found"
+      #        exit 0
+    #        else
+    #         echo "Updated sources found. Copying files to the root of the repository"
+       #     for folder in $FOLDER_LIST; do
+       #        echo "Folder: $folder"
+     #           # Copy the updated sources to the root of the repository
+      #          cp -r megalinter-reports/updated_sources/$folder/.* .
+     #           ls -lA
+  ##            done
+  #          fi
+   #   - run:
+  #        name: Set up Git bot
+  #        command: |
+   #         git config --local user.name "github-actions[bot]"
+     #       git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    #  - run:
+    #      name: Commit changes
+     #     command: |
+    #        git add .
+     #       git commit -m "Apply fixes"
+    #        git push origin $CIRCLE_BRANCH
+   #   - store_artifacts:
+   #       path: megalinter-reports
 
 workflows:
   megalinter-workflow:
