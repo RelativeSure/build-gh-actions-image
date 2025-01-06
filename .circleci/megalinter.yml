@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  megalinter: relativesure/megalinter@1.0.3
+  megalinter: relativesure/megalinter@1.0.4
   github-cli: circleci/github-cli@2.6.2
 
 # define the parameters from the setup config.  
@@ -22,12 +22,14 @@ jobs:
            username: $DOCKER_HUB_USER
            password: $DOCKER_HUB_PASSWORD
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Get the updated sources in megalinter-reports
           command: |
             # List the folders in updated_sources within megainter-reports
-            FOLDER_LIST=$(ls -l megalinter-reports/updated_sources)
-            echo "Folders in megalinter-reports/updated_sources: $FOLDER_LIST"
+            FOLDER_LIST=$(ls -l /tmp/workspace/megalinter-reports/updated_sources)
+            echo "Folders in /tmp/workspace/megalinter-reports/updated_sources: $FOLDER_LIST"
             if [ -z "$FOLDER_LIST" ]; then
               echo "No updated sources found"
               exit 0
@@ -36,7 +38,7 @@ jobs:
               for folder in $FOLDER_LIST; do
                 echo "Folder: $folder"
                 # Copy the updated sources to the root of the repository
-                cp -r megalinter-reports/updated_sources/$folder/.* .
+                cp -r /tmp/workspace/megalinter-reports/updated_sources/$folder/.* .
                 ls -lA
               done
             fi
@@ -60,7 +62,8 @@ jobs:
 workflows:
   run-megalinter:
     jobs:
-      - megalinter/megalinter
+      - megalinter/megalinter:
+          persist_megalinter_reports: true
       - after-megalinter:
           requires:
             - megalinter/megalinter
