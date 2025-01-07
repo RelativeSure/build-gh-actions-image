@@ -1,6 +1,6 @@
 ---
 # General configuration
-APPLY_FIXES: 'all'
+APPLY_FIXES: "all"
 SARIF_REPORTER: true
 GITHUB_STATUS_REPORTER: true
 GITHUB_COMMENT_REPORTER: true

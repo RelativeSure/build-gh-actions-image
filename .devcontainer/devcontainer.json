@@ -1,34 +1,34 @@
 {
-	"name": "Docker outside of Docker",
-	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+  "name": "Docker outside of Docker",
+  "image": "mcr.microsoft.com/devcontainers/base:bullseye",
 
-	"features": {
-		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
-			"version": "latest",
-			"enableNonRootDocker": "true",
-			"moby": "true"
-		},
-		"ghcr.io/devcontainers/features/github-cli:1": {},
-		"ghcr.io/devcontainers-extra/features/apt-get-packages:1": {},
-		"ghcr.io/devcontainers-extra/features/circleci-cli:1": {}
-	},
-	"remoteEnv": {
-		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
-	},
-	"customizations": {
-		"vscode": {
-			"settings": {},
-			"extensions": [
-			"github.copilot",
-			"github.vscode-pull-request-github",
-			"davidanson.vscode-markdownlint",
-			"eamodio.gitlens",
-			"donjayamanne.githistory",
-			"ms-azuretools.vscode-docker",
-			"ms-python.python",
-			"yzhang.markdown-all-in-one",
-			"circleci.circleci"
-			]
-		}
-	}
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "version": "latest",
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/apt-get-packages:1": {},
+    "ghcr.io/devcontainers-extra/features/circleci-cli:1": {}
+  },
+  "remoteEnv": {
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "github.copilot",
+        "github.vscode-pull-request-github",
+        "davidanson.vscode-markdownlint",
+        "eamodio.gitlens",
+        "donjayamanne.githistory",
+        "ms-azuretools.vscode-docker",
+        "ms-python.python",
+        "yzhang.markdown-all-in-one",
+        "circleci.circleci"
+      ]
+    }
+  }
 }

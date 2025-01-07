@@ -2,14 +2,14 @@
 version: 2.1
 setup: true
 
-# define the parameters from the setup config. 
-parameters: 
- megalinter: 
-   type: boolean 
-   default: false 
- build-fedora-image: 
-   type: boolean 
-   default: false
+# define the parameters from the setup config.
+parameters:
+  megalinter:
+    type: boolean
+    default: false
+  build-fedora-image:
+    type: boolean
+    default: false
 
 orbs:
   path-filtering: circleci/path-filtering@1.1.0
@@ -23,5 +23,5 @@ workflows:
           resource_class: large
           tag: "3.9"
           mapping: |
-           .* megalinter true .circleci/megalinter.yml
-           docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml
+            .* megalinter true .circleci/megalinter.yml
+            docker/fedora/.* build-fedora-image true .circleci/fedora-actions.yml
