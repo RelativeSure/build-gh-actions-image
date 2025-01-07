@@ -61,12 +61,13 @@ jobs:
           name: Create a new branch and commit the changes to the repository
           command: |
               git checkout -b megalinter-fixes-$CIRCLE_BUILD_NUM \
-              && git commit -am '[MegaLinter] Apply linters automatic fixes' \
+              && git add . \
+              && git commit -m '[MegaLinter] Apply linters automatic fixes' \
               && git push --set-upstream origin megalinter-fixes-$CIRCLE_BUILD_NUM
       - run:
           name: Create a pull request
           command: |
-              gh pr create --title "[MegaLinter] Apply linters automatic fixes" --body "This PR applies automatic fixes from the MegaLinter" --base master --head megalinter-fixes-$CIRCLE_BUILD_NUM
+              gh pr create --title "[MegaLinter] Apply linters automatic fixes" --body "This PR applies automatic fixes from MegaLinter" --base master --head megalinter-fixes-$CIRCLE_BUILD_NUM
 workflows:
   run-megalinter:
     jobs:
@@ -75,3 +76,7 @@ workflows:
       - after-megalinter:
           requires:
             - megalinter/megalinter
+          filters:
+            branches:
+              only:
+                - master
