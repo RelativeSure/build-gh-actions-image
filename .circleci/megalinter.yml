@@ -33,7 +33,7 @@ jobs:
             # Check if updated_sources subfolder exists
             if [ ! -d "$UPD_FILES" ]; then
               echo "$UPD_FILES does not exist."
-              exit 0
+              # exit 0
               circleci-agent step halt
             fi
             # List the folders and files in updated_sources subfolder in megalinter-reports folder.
@@ -42,7 +42,7 @@ jobs:
             # Check if there are any items in updated_sources
             if [ -z "$ITEMS" ]; then
               echo "No updated sources found"
-              exit 0
+              # exit 0
               circleci-agent step halt
             else
               echo "Updated sources found. Copying files to the repository"
