@@ -37,18 +37,19 @@ jobs:
               exit 0
             else
               echo "Updated sources found. Copying files to the root of the repository"
-              for item in $ITEMS; do
-                echo "Item: $item"
-                # Check if item is a directory or a file
-                if [ -d "/tmp/lint/megalinter-reports/updated_sources/$item" ]; then
-                  # Copy the updated sources to the root of the repository
-                  cp -r /tmp/lint/megalinter-reports/updated_sources/"$item"/* .
-                else
-                  # Copy the file to the root of the repository
-                  cp /tmp/lint/megalinter-reports/updated_sources/"$item" .
-                fi
-                ls -lA
-              done
+              cp -r /tmp/lint/megalinter-reports/updated_sources/* .
+              # for item in $ITEMS; do
+                # echo "Item: $item"
+                # # Check if item is a directory or a file
+                # if [ -d "/tmp/lint/megalinter-reports/updated_sources/$item" ]; then
+                #   # Copy the updated sources to the root of the repository
+                #   cp -r /tmp/lint/megalinter-reports/updated_sources/"$item"/* .
+                # else
+                #   # Copy the file to the root of the repository
+                #   cp /tmp/lint/megalinter-reports/updated_sources/"$item" .
+                # fi
+                # ls -lA
+              # done
             fi
       - github-cli/setup:
           token: GH_PACKAGES_TOKEN
@@ -76,7 +77,7 @@ workflows:
       - after-megalinter:
           requires:
             - megalinter/megalinter
-          filters:
-            branches:
-              only:
-                - master
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
