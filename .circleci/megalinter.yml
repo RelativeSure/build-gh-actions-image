@@ -37,7 +37,7 @@ jobs:
               exit 0
             else
               echo "Updated sources found. Copying files to the root of the repository"
-              cp -r /tmp/lint/megalinter-reports/updated_sources/* .
+              cp -a /tmp/lint/megalinter-reports/updated_sources/. .
               # for item in $ITEMS; do
                 # echo "Item: $item"
                 # # Check if item is a directory or a file
