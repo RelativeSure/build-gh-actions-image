@@ -5,22 +5,22 @@ orbs:
   megalinter: relativesure/megalinter@1.0.5
   github-cli: circleci/github-cli@2.6.2
 
-# define the parameters from the setup config.  
-parameters:  
-  megalinter:  
-    type: boolean  
-    default: false  
-  build-fedora-image:  
-    type: boolean  
+# define the parameters from the setup config.
+parameters:
+  megalinter:
+    type: boolean
+    default: false
+  build-fedora-image:
+    type: boolean
     default: false
 
 jobs:
   after-megalinter:
     docker:
       - image: cimg/base:stable
-        auth: 
-           username: $DOCKER_HUB_USER
-           password: $DOCKER_HUB_PASSWORD
+        auth:
+          username: $DOCKER_HUB_USER
+          password: $DOCKER_HUB_PASSWORD
     steps:
       - checkout
       - attach_workspace:
@@ -44,19 +44,19 @@ jobs:
       - run:
           name: Set up Git bot
           command: |
-              git config --local user.email "139585163+KubeArchitectBot@users.noreply.github.com"
-              git config --local user.name "KubeArchitectBot"
+            git config --local user.email "139585163+KubeArchitectBot@users.noreply.github.com"
+            git config --local user.name "KubeArchitectBot"
       - run:
           name: Create a new branch and commit the changes to the repository
           command: |
-              git checkout -b megalinter-fixes-$CIRCLE_BUILD_NUM \
-              && git add . \
-              && git commit -m '[MegaLinter] Apply linters automatic fixes' \
-              && git push --set-upstream origin megalinter-fixes-$CIRCLE_BUILD_NUM
+            git checkout -b megalinter-fixes-$CIRCLE_BUILD_NUM \
+            && git add . \
+            && git commit -m '[MegaLinter] Apply linters automatic fixes' \
+            && git push --set-upstream origin megalinter-fixes-$CIRCLE_BUILD_NUM
       - run:
           name: Create a pull request
           command: |
-              gh pr create --title "[MegaLinter] Apply linters automatic fixes" --body "This PR applies automatic fixes from MegaLinter" --base master --head megalinter-fixes-$CIRCLE_BUILD_NUM
+            gh pr create --title "[MegaLinter] Apply linters automatic fixes" --body "This PR applies automatic fixes from MegaLinter" --base master --head megalinter-fixes-$CIRCLE_BUILD_NUM
 workflows:
   run-megalinter:
     jobs:
