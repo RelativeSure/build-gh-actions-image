@@ -22,6 +22,7 @@ jobs:
            username: $DOCKER_HUB_USER
            password: $DOCKER_HUB_PASSWORD
     steps:
+      - checkout
       - attach_workspace:
           at: /tmp/lint
       - run:
