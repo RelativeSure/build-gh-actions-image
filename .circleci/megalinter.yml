@@ -14,14 +14,18 @@ parameters:
     type: boolean
     default: false
 
+jobs:
+  megalinter:
+    executor:
+      flavor: "cupcake"
+    - megalinter/megalinter:
+        github_token: GH_PACKAGES_TOKEN
+        persist_megalinter_reports: true
+        run_git_operations: true
+        git_base_branch: master
+        context:
+          - Main Context
+
 workflows:
   run-megalinter:
-    jobs:
-      - megalinter/megalinter:
-          github_token: GH_PACKAGES_TOKEN
-          flavor: "cupcake"
-          persist_megalinter_reports: true
-          run_git_operations: true
-          git_base_branch: master
-          context:
-            - Main Context
+
