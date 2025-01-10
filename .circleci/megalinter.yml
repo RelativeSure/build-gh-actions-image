@@ -23,6 +23,7 @@ workflows:
           run_git_operations: true
           git_base_branch: master
           executor:
+            name: default
             flavor: cupcake
           context:
             - Main Context
