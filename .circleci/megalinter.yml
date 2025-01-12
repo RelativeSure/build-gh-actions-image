@@ -2,8 +2,7 @@
 version: 2.1
 
 orbs:
-  megalinter: relativesure/megalinter@1.0.6
-  github-cli: circleci/github-cli@2.6.2
+  megalinter: relativesure/megalinter@volatile
 
 # define the parameters from the setup config.
 parameters:
@@ -18,12 +17,10 @@ workflows:
   run-megalinter:
     jobs:
       - megalinter/megalinter:
-          github_token: GH_PACKAGES_TOKEN
           persist_megalinter_reports: true
           run_git_operations: true
           git_base_branch: master
           executor:
-            name: default
             flavor: cupcake
           context:
             - Main Context
