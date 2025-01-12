@@ -20,7 +20,6 @@ workflows:
           persist_megalinter_reports: true
           run_git_operations: true
           git_base_branch: master
-          executor:
-            flavor: cupcake
+          flavor: cupcake
           context:
             - Main Context
